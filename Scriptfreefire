@@ -1,0 +1,22 @@
+-- التحميل
+local targetDistance = 10
+local cameraAngle = 45
+local playerSpeed = 5
+
+-- كشف الهدف
+local targetPosition = getTargetPosition()
+local targetDistance = getDistance(targetPosition)
+
+-- تلاعب الكاميرا
+setCameraAngle(cameraAngle)
+setCameraPosition(targetPosition.x, targetPosition.y, targetPosition.z)
+
+-- حركة اللاعب
+movePlayerToPosition(targetPosition.x, targetPosition.y, targetPosition.z, playerSpeed)
+
+-- مسار الرصاص
+local bulletTrajectory = calculateBulletTrajectory(targetPosition, playerPosition)
+setBulletTrajectory(bulletTrajectory)
+
+-- التصويب
+fireShot()
