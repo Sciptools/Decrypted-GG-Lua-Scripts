@@ -1,0 +1,37 @@
+-- Configuration
+local sensitivity = 100 -- adjust the sensitivity to your liking
+local antiban_delay = 300 -- delay in milliseconds between shots to avoid ban
+local antiblacklist_delay = 500 -- delay in milliseconds between shots to avoid blacklist
+
+-- Function to check if the enemy is in the belly area
+local function isEnemyInBellyArea(enemy)
+  local enemyPosition = enemy:getPosition()
+  local bellyArea = {x = 0.5, y = 0.5, z = 0.5, radius = 0.2} -- adjust the belly area to your liking
+  local distance = math.sqrt((enemyPosition.x - bellyArea.x)^2 + (enemyPosition.y - bellyArea.y)^2 + (enemyPosition.z - bellyArea.z)^2)
+  return distance <= bellyArea.radius
+end
+
+-- Function to shoot the enemy
+local function shootEnemy(enemy)
+  -- simulate a shot
+  print("Shooting enemy in the belly!")
+  -- add antiban delay
+  wait(antiban_delay)
+end
+
+-- Main loop
+while true do
+  -- get all enemies
+  local enemies = getEnemies()
+  for _, enemy in ipairs(enemies) do
+    -- check if the enemy is in the belly area
+    if isEnemyInBellyArea(enemy) then
+      -- shoot the enemy
+      shootEnemy(enemy)
+      -- add antiblacklist delay
+      wait(antiblacklist_delay)
+    end
+  end
+  -- wait for the next iteration
+  wait(10)
+end
